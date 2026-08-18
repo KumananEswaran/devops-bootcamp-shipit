@@ -1,6 +1,17 @@
 name: deploy
 on: [push, workflow_dispatch]
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+      - run: npm clean-install
+      - run: npm run test
+      - run: bash scripts/report.sh
+        env:
+          BOARD_URL: ${{ vars.BOARD_URL }}
+          SHIPIT_TOKEN: ${{ secrets.SHIPIT_TOKEN }}
   say-hello:
     runs-on: ubuntu-latest
     defaults:
