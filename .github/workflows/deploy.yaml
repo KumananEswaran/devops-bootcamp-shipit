@@ -1,6 +1,10 @@
 name: deploy
 on: [push, workflow_dispatch]
 
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 defaults:
   run:
     working-directory: launchpad
